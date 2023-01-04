@@ -15,43 +15,13 @@ import {
   LessButton,
   MoreButton,
 } from "./index.style";
-import Americano from "../../../../assets/coffee/Americano.png";
-import Arabe from "../../../../assets/coffee/Arabe.png";
-import CafeComLeite from "../../../../assets/coffee/CafeComLeite.png";
-import CafeGelado from "../../../../assets/coffee/CafeGelado.png";
-import Capuccino from "../../../../assets/coffee/Capuccino.png";
-import ChocolateQuente from "../../../../assets/coffee/ChocolateQuente.png";
-import Cubano from "../../../../assets/coffee/Cubano.png";
-import ExpressoCremoso from "../../../../assets/coffee/ExpressoCremoso.png";
-import Expresso from "../../../../assets/coffee/Expresso.png";
-import Havaiano from "../../../../assets/coffee/Havaiano.png";
-import Irlandes from "../../../../assets/coffee/Irlandes.png";
-import Latte from "../../../../assets/coffee/Latte.png";
-import Macchiato from "../../../../assets/coffee/Macchiato.png";
-import Mochaccino from "../../../../assets/coffee/Mochaccino.png";
 import { Coffee } from "../../../../models/Coffee";
 import { Minus, Plus, ShoppingCartSimple } from "phosphor-react";
 import { useContext, useState } from "react";
 import { CartContext } from "../../../../contexts/CartContextProvider";
+import { coffeeImages } from "../../../../assets/coffee.images";
 
-export type ProductImg = keyof typeof coffeeSrc;
-
-const coffeeSrc = {
-  Americano,
-  Arabe,
-  CafeComLeite,
-  CafeGelado,
-  Capuccino,
-  ChocolateQuente,
-  Cubano,
-  ExpressoCremoso,
-  Expresso,
-  Havaiano,
-  Irlandes,
-  Latte,
-  Macchiato,
-  Mochaccino,
-};
+export type ProductImg = keyof typeof coffeeImages;
 
 export function Product(coffee: Coffee) {
   const [amount, setAmount] = useState(1);
@@ -70,7 +40,7 @@ export function Product(coffee: Coffee) {
   };
 
   const { id, src, title, subtitle, price, tags } = coffee;
-  const imgSrc = coffeeSrc[src];
+  const imgSrc = coffeeImages[src];
   console.log(cart);
   return (
     <Card>

@@ -13,6 +13,8 @@ interface ICartContext {
   handleUpdateCart: (item: CartItem) => void;
   handleAddItemToCart: (item: CartItem) => void;
   handleDeleteFromCart: (id: string) => void;
+  handleRemoveSingleItemFromCart: (id: string) => void;
+  handleAddSingleItemToCart: (id: string) => void;
 }
 
 interface CartContextProviderProps {
@@ -32,6 +34,36 @@ export function CartContextProvider({ children }: CartContextProviderProps) {
 
     setCart(storedData);
   }, [setCart, getItem, key]);
+
+  const handleRemoveSingleItemFromCart = (coffeeId: string) => {
+    setCart((state) => {
+      const currentItem = state.find((v) => v.item.id === coffeeId);
+      if (currentItem) {
+        currentItem.amount -= 1;
+        const newArray = state.slice();
+        const index = state.findIndex((ci) => ci.item.id === coffeeId);
+        newArray[index] = currentItem;
+        setItem(key, newArray);
+        return newArray;
+      }
+      return state;
+    });
+  };
+
+  const handleAddSingleItemToCart = (coffeeId: string) => {
+    setCart((state) => {
+      const currentItem = state.find((v) => v.item.id === coffeeId);
+      if (currentItem) {
+        currentItem.amount += 1;
+        const newArray = state.slice();
+        const index = state.findIndex((ci) => ci.item.id === coffeeId);
+        newArray[index] = currentItem;
+        setItem(key, newArray);
+        return newArray;
+      }
+      return state;
+    });
+  };
 
   const handleAddItemToCart = (cartItem: CartItem) => {
     setCart((state) => {
@@ -74,6 +106,8 @@ export function CartContextProvider({ children }: CartContextProviderProps) {
     handleUpdateCart,
     handleAddItemToCart,
     handleDeleteFromCart,
+    handleRemoveSingleItemFromCart,
+    handleAddSingleItemToCart,
   };
   return (
     <CartContext.Provider value={context}>{children}</CartContext.Provider>

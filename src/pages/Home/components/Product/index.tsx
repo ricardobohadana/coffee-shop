@@ -66,7 +66,7 @@ export function Product(coffee: Coffee) {
                 width={14}
                 weight="fill"
                 onClick={() =>
-                  setAmount((state) => (state - 1 >= 0 ? state - 1 : 0))
+                  setAmount((state) => (state > 1 ? state - 1 : 1))
                 }
               />
             </LessButton>

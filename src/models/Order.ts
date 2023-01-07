@@ -1,13 +1,17 @@
-export type PaymentMethod = "Cartão de Crédito" | "Cartão de Débito" | "Boleto Bancário";
+export enum PaymentMethodEnum {
+  CREDIT = "Cartão de Crédito",
+  DEBIT = "Cartão de Débito",
+  MONEY = "Dinheiro",
+}
 
 export interface Order {
   zipCode: string;
   street: string;
   number: string;
-  moreInfo: string;
+  moreInfo?: string;
   district: string;
-  city: string
+  city: string;
   state: string;
-  paymentMethod: PaymentMethod;
+  paymentMethod: PaymentMethodEnum;
   deliveryFee: number;
 }

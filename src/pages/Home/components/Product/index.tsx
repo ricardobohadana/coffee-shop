@@ -20,6 +20,7 @@ import { Minus, Plus, ShoppingCartSimple } from "phosphor-react";
 import { useContext, useState } from "react";
 import { CartContext } from "../../../../contexts/CartContextProvider";
 import { coffeeImages } from "../../../../assets/coffee.images";
+import { ConvertToCurrency } from "../../../../helpers/ConvertToCurrency";
 
 export type ProductImg = keyof typeof coffeeImages;
 
@@ -32,11 +33,6 @@ export function Product(coffee: Coffee) {
       amount,
     };
     handleAddItemToCart(cartItem);
-  };
-  const convertToCurrency = (price: number) => {
-    return new Intl.NumberFormat("pt-BR", { minimumFractionDigits: 2 }).format(
-      price
-    );
   };
 
   const { id, src, title, subtitle, price, tags } = coffee;
@@ -57,7 +53,7 @@ export function Product(coffee: Coffee) {
       <PriceActionContainer>
         <div>
           <DollarSign>R$ </DollarSign>
-          <Price>{convertToCurrency(price)}</Price>
+          <Price>{ConvertToCurrency(price)}</Price>
         </div>
         <ActionContainer>
           <ItemCounter>
@@ -79,12 +75,8 @@ export function Product(coffee: Coffee) {
               />
             </MoreButton>
           </ItemCounter>
-          <AddToCartBtn>
-            <ShoppingCartSimple
-              width={22}
-              weight="fill"
-              onClick={handleAddToCart}
-            />
+          <AddToCartBtn onClick={handleAddToCart}>
+            <ShoppingCartSimple width={22} weight="fill" />
           </AddToCartBtn>
         </ActionContainer>
       </PriceActionContainer>

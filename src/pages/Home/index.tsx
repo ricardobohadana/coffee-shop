@@ -12,14 +12,14 @@ import { defaultTheme } from "../../styles/themes/default";
 import { Coffee, Package, ShoppingCart, Timer } from "phosphor-react";
 import { Product } from "./components/Product";
 import { useQuery } from "react-query";
-import { Http } from "../../api/http";
+import { coffeeData, Http } from "../../api/http";
 
 export function Home() {
   const { isLoading, isError, data } = useQuery(
     "home-coffees-query",
     Http.getCoffees
   );
-  const coffees = data ?? [];
+  const coffees = data ?? coffeeData;
 
   const iconTexts = [
     {

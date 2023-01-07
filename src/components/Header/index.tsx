@@ -9,6 +9,7 @@ import { ShoppingCart, MapPin } from "phosphor-react";
 import Logo from "../../assets/Logo.svg";
 import { useContext, useState } from "react";
 import { CartContext } from "../../contexts/CartContextProvider";
+import { Link } from "react-router-dom";
 
 export function Header() {
   const [index, setIndex] = useState(0);
@@ -19,23 +20,27 @@ export function Header() {
     setIndex((state) => state + 1);
   };
 
-  const notifications = cart.length;
+  const notifications = cart.reduce((prev, curr) => prev + curr.amount, 0);
   const shouldShowNotificationBadge = notifications > 0;
 
   return (
     <Navbar>
-      <img src={Logo} alt="Coffe Delivery" width={85} />
+      <Link to="" style={{ cursor: "pointer" }}>
+        <img src={Logo} alt="Coffe Delivery" width={85} />
+      </Link>
       <ActionContainer>
         <LocationContainer onClick={handleLocationChange}>
           <MapPin size={22} weight="fill" />
           <span>{cities[index % 3]}</span>
         </LocationContainer>
-        <CartContainer>
-          {shouldShowNotificationBadge && (
-            <NotificationBadge>{notifications}</NotificationBadge>
-          )}
-          <ShoppingCart size={22} weight="fill" />
-        </CartContainer>
+        <Link to={notifications > 0 ? "checkout" : ""}>
+          <CartContainer>
+            {shouldShowNotificationBadge && (
+              <NotificationBadge>{notifications}</NotificationBadge>
+            )}
+            <ShoppingCart size={22} weight="fill" />
+          </CartContainer>
+        </Link>
       </ActionContainer>
     </Navbar>
   );
